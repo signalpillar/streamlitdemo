@@ -14,6 +14,7 @@ def summarise(url: str, number_of_sentences: int, lang='english') -> tuple:
      # one-off resolution
      import nltk
      nltk.download("punkt")
+     parser = HtmlParser.from_url(url, Tokenizer(lang))
      
     stemmer = Stemmer(lang)
     summarizer = Summarizer(stemmer)
