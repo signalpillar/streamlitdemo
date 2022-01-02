@@ -8,7 +8,13 @@ def summarise(url: str, number_of_sentences: int, lang='english') -> tuple:
     from sumy.nlp.stemmers import Stemmer
     from sumy.utils import get_stop_words
     
-    parser = HtmlParser.from_url(url, Tokenizer(lang))
+    try:
+      parser = HtmlParser.from_url(url, Tokenizer(lang))
+    except LookupError:
+     # one-off resolution
+     import nltk
+     nltk.download("punkt")
+     
     stemmer = Stemmer(lang)
     summarizer = Summarizer(stemmer)
     summarizer.stop_words = get_stop_words(lang)
